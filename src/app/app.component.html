@@ -1,29 +1,27 @@
+<div>width: {{ dss.screenWidth$ | async }} ⬩ is small: {{ dss.isSmall$ | async }}</div>
 <dx-data-grid id="gridContainer" [dataSource]="dataSource" [remoteOperations]="false" [allowColumnReordering]="true"
   [rowAlternationEnabled]="true" [showBorders]="true" [width]="'100%'" (onContentReady)="contentReady($event)">
-  <dxo-column-chooser [enabled]='true'></dxo-column-chooser>
+  <dxo-column-chooser [enabled]='!(dss.isSmall$ | async)'></dxo-column-chooser>
+  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
   <dxo-pager [visible]="false"></dxo-pager>
   <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
   <dxo-group-panel [visible]="true"></dxo-group-panel>
   <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
-  <dxo-state-storing [enabled]="true" storageKey="Test"></dxo-state-storing>
+  <dxo-editing [allowAdding]="false" [allowUpdating]="false" [allowDeleting]="false"></dxo-editing>
+  <dxo-header-filter [visible]="!(dss.isSmall$ | async)"></dxo-header-filter>
+  <dxo-group-panel [visible]="!(dss.isSmall$ | async)"> </dxo-group-panel>
+  <dxo-state-storing [enabled]="true" [customLoad]="customLoad" [customSave]="customSave" storageKey="Test"></dxo-state-storing>
   <!--
-  <dxo-column-chooser [enabled]='!(dss.isSmall$ | async)'></dxo-column-chooser>
-  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
   <dxo-load-panel></dxo-load-panel>
   <dxo-selection mode="multiple" showCheckBoxesMode="onClick" [allowSelectAll]="true"></dxo-selection>
-  <dxo-editing [allowAdding]="false" [allowUpdating]="false" [allowDeleting]="false"></dxo-editing>
   <dxo-scrolling mode="virtual"></dxo-scrolling>
   <dxo-summary>
     <dxi-total-item [column]="!(dss.isSmall$ | async) ? 'LotNumber' : 'MobileColumnView'" summaryType="count"> </dxi-total-item>
   </dxo-summary>
-  <dxo-pager [visible]="false" displayMode="adaptive" allowedPageSizes="auto" [showInfo]="false"
-    [showNavigationButtons]="false" [showPageSizeSelector]="false"></dxo-pager>
   <dxo-filter-builder-popup [(visible)]="filterBuilderVisible"></dxo-filter-builder-popup>
   <dxo-filter-panel [visible]='true'></dxo-filter-panel>
   <dxo-filter-row></dxo-filter-row>
-  <dxo-header-filter [visible]="!(dss.isSmall$ | async)"></dxo-header-filter>
   <dxo-search-panel [visible]="false" [searchVisibleColumnsOnly]="false"></dxo-search-panel>
-  <dxo-group-panel [visible]="!(dss.isSmall$ | async)"> </dxo-group-panel>
   <dxo-grouping #expand [autoExpandAll]="false" [allowCollapsing]="true" [contextMenuEnabled]="false"
     expandMode="rowClick"></dxo-grouping>
   <dxo-toolbar [visible]="true"></dxo-toolbar>
@@ -33,7 +31,8 @@
 
 
   <!-- Columns -->
-  <dxi-column dataField="Product" [groupIndex]="0"></dxi-column>
+  <!-- <dxi-column dataField="Product" [groupIndex]="0"></dxi-column> -->
+  <dxi-column dataField="Product"></dxi-column>
   <dxi-column dataField="Amount" caption="Sale Amount" dataType="number" format="currency"
     alignment="right"></dxi-column>
   <dxi-column caption="Discount %" dataField="Discount" cellTemplate="discountCellTemplate" dataType="number"
