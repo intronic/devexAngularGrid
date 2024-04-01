@@ -2,6 +2,21 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
 
+## DevEx
+
+* Devex installed with:
+
+```bash
+npm install devextreme devextreme-angular devextreme-schematics
+npm install --save-dev devextreme-cli devextreme-themebuilder
+
+npm install @angular/cdk
+```
+
+* Demo app installed copy/paste from:
+  * https://js.devexpress.com/Angular/Demos/WidgetsGallery/Demo/DataGrid/Overview/MaterialBlueLight/
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
