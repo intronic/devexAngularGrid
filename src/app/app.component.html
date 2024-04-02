@@ -1,5 +1,5 @@
 <div>width: {{ dss.screenWidth$ | async }} ⬩ is small: {{ dss.isSmall$ | async }}</div>
-<dx-data-grid id="gridContainer" [dataSource]="dataSource" [remoteOperations]="false" [allowColumnReordering]="true"
+<dx-data-grid #dataGrid id="dataGrid" [dataSource]="dataSource" [remoteOperations]="false" [allowColumnReordering]="true"
   [rowAlternationEnabled]="true" [showBorders]="true" [width]="'100%'" (onContentReady)="contentReady($event)">
   <dxo-column-chooser [enabled]='!(dss.isSmall$ | async)'></dxo-column-chooser>
   <dxo-column-fixing [enabled]="true"></dxo-column-fixing>

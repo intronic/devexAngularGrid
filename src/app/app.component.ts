@@ -1,9 +1,9 @@
-import { NgModule, Component, enableProdMode } from '@angular/core';
+import { NgModule, Component, enableProdMode, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import DataSource from 'devextreme/data/data_source';
 import { DxBulletModule, DxTemplateModule } from 'devextreme-angular';
-import { DxDataGridModule, DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
+import { DxDataGridComponent, DxDataGridModule, DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import { Service } from './app.service';
 import { DeviceScreenSizeService, ScreenWidthEnum } from './device-screen-size.service';
 import { Column } from 'devextreme/ui/data_grid';
@@ -18,7 +18,8 @@ if (!/localhost/.test(document.location.host)) {
   styleUrls: ['app.component.css'],
   providers: [Service],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
+	@ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
   dataSource: DataSource;
 
   collapsed = false;
@@ -43,6 +44,12 @@ export class AppComponent {
     this.customSave = this.customSave.bind(this);
   }
 
+  ngOnInit() {
+    // this.
+  }
+
+  ngAfterViewInit(): void {
+  }
 
   async customLoad() {
     return customDxGridLoadState(this.sessionKey, [], (x) => {}, this.dss);
