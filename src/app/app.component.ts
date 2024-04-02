@@ -8,14 +8,11 @@ import { Service } from './app.service';
 import { DeviceScreenSizeService, ScreenWidthEnum } from './device-screen-size.service';
 import { Column } from 'devextreme/ui/data_grid';
 
-if (!/localhost/.test(document.location.host)) {
-  enableProdMode();
-}
 
 @Component({
-  selector: 'demo-app',
+  selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
+  styleUrls: ['app.component.css', "../vendors/dx/css/devextreme-custom.scss"],
   providers: [Service],
 })
 export class AppComponent implements OnInit, AfterViewInit {
@@ -171,17 +168,3 @@ function removeUnwantedStateProperties(dxState: any): any {
   const { focusedRowKey: _, ...newState } = dxState;
   return newState;
 }
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    DxDataGridModule,
-    DxTemplateModule,
-    DxBulletModule,
-  ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
-})
-export class AppModule { }
-
-platformBrowserDynamic().bootstrapModule(AppModule);

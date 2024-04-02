@@ -1,6 +1,24 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+import { AppModule } from './app.module';
+// import { environment } from './environments/environment';
+
+export function getBaseUrl() {
+	return document.getElementsByTagName('base')[0].href;
+}
+
+// const providers = [
+// 	{ provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
+// ];
+
+// if (environment.production) {
+// 	enableProdMode();
+// }
+
+if (!/localhost/.test(document.location.host)) {
+  enableProdMode();
+}
+
+// platformBrowserDynamic(providers).bootstrapModule(AppModule)
+platformBrowserDynamic().bootstrapModule(AppModule);
