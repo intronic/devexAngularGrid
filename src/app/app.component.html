@@ -2,11 +2,11 @@
 <dx-button text="Clear State" (onClick)="clearState($event)"></dx-button>
 <dx-drop-down-button text="Set View" [items]="views" [displayExpr]="'name'" (onItemClick)="setStandardViewItem($event)"></dx-drop-down-button>
 <!--
-  (onInitialized)="onGridInit($event)"
 
  -->
 <dx-data-grid #dataGrid id="dataGrid" [dataSource]="dataSource" [remoteOperations]="false" [allowColumnReordering]="true"
   [rowAlternationEnabled]="true" [showBorders]="true" [width]="'100%'" (onContentReady)="contentReady($event)"
+  (onInitialized)="onGridInit($event)"
   >
   <dxo-column-chooser [enabled]='!(dss.isSmall$ | async)'></dxo-column-chooser>
   <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
