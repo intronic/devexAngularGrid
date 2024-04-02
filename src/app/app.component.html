@@ -1,6 +1,13 @@
 <div>width: {{ dss.screenWidth$ | async }} ⬩ is small: {{ dss.isSmall$ | async }}</div>
+<dx-button text="Clear State" (onClick)="clearState($event)"></dx-button>
+<dx-drop-down-button text="Set View" [items]="views" [displayExpr]="'name'" (onItemClick)="setStandardViewItem($event)"></dx-drop-down-button>
+<!--
+  (onInitialized)="onGridInit($event)"
+
+ -->
 <dx-data-grid #dataGrid id="dataGrid" [dataSource]="dataSource" [remoteOperations]="false" [allowColumnReordering]="true"
-  [rowAlternationEnabled]="true" [showBorders]="true" [width]="'100%'" (onContentReady)="contentReady($event)">
+  [rowAlternationEnabled]="true" [showBorders]="true" [width]="'100%'" (onContentReady)="contentReady($event)"
+  >
   <dxo-column-chooser [enabled]='!(dss.isSmall$ | async)'></dxo-column-chooser>
   <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
   <dxo-pager [visible]="false"></dxo-pager>
@@ -10,7 +17,7 @@
   <dxo-editing [allowAdding]="false" [allowUpdating]="false" [allowDeleting]="false"></dxo-editing>
   <dxo-header-filter [visible]="!(dss.isSmall$ | async)"></dxo-header-filter>
   <dxo-group-panel [visible]="!(dss.isSmall$ | async)"> </dxo-group-panel>
-  <dxo-state-storing [enabled]="true" [customLoad]="customLoad" [customSave]="customSave" storageKey="Test"></dxo-state-storing>
+  <dxo-state-storing [enabled]="true" type="custom" [customLoad]="customLoad" [customSave]="customSave" storageKey="Test"></dxo-state-storing>
   <!--
   <dxo-load-panel></dxo-load-panel>
   <dxo-selection mode="multiple" showCheckBoxesMode="onClick" [allowSelectAll]="true"></dxo-selection>

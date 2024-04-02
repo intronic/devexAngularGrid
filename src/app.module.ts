@@ -12,6 +12,8 @@ import {
 	DxFormModule,
   DxDataGridModule,
   DxBulletModule,
+	DxButtonModule,
+	DxDropDownButtonModule,
 } from "devextreme-angular";
 
 
@@ -24,6 +26,8 @@ import { AppComponent } from "./app/app.component";
 		AppComponent,
 	],
 	imports: [
+		DxButtonModule,
+		DxDropDownButtonModule,
     DxDataGridModule,
     DxTemplateModule,
     DxBulletModule,

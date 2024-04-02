@@ -1,26 +1,33 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, distinctUntilChanged, map } from 'rxjs';
+import { Observable, ReplaySubject, distinctUntilChanged, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeviceScreenSizeService {
 
-  public readonly screenWidth$: Observable<ScreenWidthEnum> = this.breakpointObserver.observe([ScreenSizeQuery.Large, ScreenSizeQuery.Medium])
-    .pipe(map(state => state.breakpoints[ScreenSizeQuery.Large] ? ScreenWidthEnum.Large : state.breakpoints[ScreenSizeQuery.Medium] ? ScreenWidthEnum.Medium : ScreenWidthEnum.Small))
-    .pipe(distinctUntilChanged());
-  public readonly isSmall$: Observable<boolean> = this.screenWidth$.pipe(map(width => width === ScreenWidthEnum.Small));
-  public readonly isNotSmall$: Observable<boolean> = this.screenWidth$.pipe(map(width => width !== ScreenWidthEnum.Small));
-  public readonly isMedium$: Observable<boolean> = this.screenWidth$.pipe(map(width => width === ScreenWidthEnum.Medium));
-  public readonly isLarge$: Observable<boolean> = this.screenWidth$.pipe(map(width => width === ScreenWidthEnum.Large));
+  public readonly screenWidth$;
+  public readonly isSmall$: Observable<boolean>;
+  public readonly isNotSmall$: Observable<boolean>;
+  public readonly isMedium$: Observable<boolean>;
+  public readonly isLarge$: Observable<boolean>;
   public readonly latestScreenWidth$: ReplaySubject<ScreenWidthEnum> = new ReplaySubject<ScreenWidthEnum>(1); // for DX components that just need a latest value
   public readonly latestIsSmall$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1); // for DX components that just need a latest value
 
   constructor(
     public breakpointObserver: BreakpointObserver
   ) {
-    this.screenWidth$.subscribe(this.latestScreenWidth$);
+    this.screenWidth$ = this.breakpointObserver.observe([ScreenSizeQuery.Large, ScreenSizeQuery.Medium])
+      .pipe(map(state => state.breakpoints[ScreenSizeQuery.Large] ? ScreenWidthEnum.Large : state.breakpoints[ScreenSizeQuery.Medium] ? ScreenWidthEnum.Medium : ScreenWidthEnum.Small))
+      .pipe(distinctUntilChanged());
+    this.isSmall$ = this.screenWidth$.pipe(map(width => width === ScreenWidthEnum.Small));
+    this.isNotSmall$ = this.screenWidth$.pipe(map(width => width !== ScreenWidthEnum.Small));
+    this.isMedium$ = this.screenWidth$.pipe(map(width => width === ScreenWidthEnum.Medium));
+    this.isLarge$ = this.screenWidth$.pipe(map(width => width === ScreenWidthEnum.Large));
+    this.latestScreenWidth$ = new ReplaySubject<ScreenWidthEnum>(1); // for DX components that just need a latest value
+    this.latestIsSmall$ = new ReplaySubject<boolean>(1); // for DX components that just need a latest value
+        this.screenWidth$.subscribe(this.latestScreenWidth$);
     this.isSmall$.subscribe(this.latestIsSmall$);
   }
 

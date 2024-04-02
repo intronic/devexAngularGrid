@@ -10,7 +10,7 @@
 		"declaration": false,
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
-		"target": "es2015",
+		"target": "ES2022",
 		"lib": [
 			"es2022",
 			"dom"
